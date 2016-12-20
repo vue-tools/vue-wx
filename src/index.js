@@ -3,13 +3,15 @@ import APIS from './apis'
 const JSSDK = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js'
 
 function plugin(Vue, opts) {
-    let weixin, queue
+    let weixin, queue, done
 
     queue = []
     weixin = {}
+    done = false
 
     opts = Object.assign({}, {
         url: '',
+        debug: false,
         config: null
     }, opts)
 
@@ -28,12 +30,12 @@ function plugin(Vue, opts) {
 
         getJSONP(url, (res) => {
             window.wx.config(Object.assign({}, opts.config(res), {
-                debug: false,
-                jsApiList: APIS
+                jsApiList: APIS,
+                debug: opts.debug
             }))
 
             window.wx.ready(() => {
-                queue.done = true
+                done = true
 
                 for (let index = 0; index < queue.length; index++) {
                     window.wx[queue[index]](queue[++index])
@@ -43,7 +45,6 @@ function plugin(Vue, opts) {
             })
 
             window.wx.error((res) => {
-                queue.done = false
                 alert(JSON.stringify(res))
             })
         })
@@ -51,7 +52,7 @@ function plugin(Vue, opts) {
 
     APIS.map((item) => {
         weixin[item] = (options = {}) => {
-            if (queue.done) {
+            if (done) {
                 window.wx[item](options)
             } else {
                 queue = [...queue, item, options]

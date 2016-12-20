@@ -26,13 +26,16 @@ var JSSDK = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js';
 
 function plugin(Vue, opts) {
     var weixin = void 0,
-        queue = void 0;
+        queue = void 0,
+        done = void 0;
 
     queue = [];
     weixin = {};
+    done = false;
 
     opts = (0, _assign2.default)({}, {
         url: '',
+        debug: false,
         config: null
     }, opts);
 
@@ -51,12 +54,12 @@ function plugin(Vue, opts) {
 
         getJSONP(url, function (res) {
             window.wx.config((0, _assign2.default)({}, opts.config(res), {
-                debug: false,
-                jsApiList: _apis2.default
+                jsApiList: _apis2.default,
+                debug: opts.debug
             }));
 
             window.wx.ready(function () {
-                queue.done = true;
+                done = true;
 
                 for (var index = 0; index < queue.length; index++) {
                     window.wx[queue[index]](queue[++index]);
@@ -66,7 +69,6 @@ function plugin(Vue, opts) {
             });
 
             window.wx.error(function (res) {
-                queue.done = false;
                 alert((0, _stringify2.default)(res));
             });
         });
@@ -76,7 +78,7 @@ function plugin(Vue, opts) {
         weixin[item] = function () {
             var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-            if (queue.done) {
+            if (done) {
                 window.wx[item](options);
             } else {
                 queue = [].concat((0, _toConsumableArray3.default)(queue), [item, options]);
