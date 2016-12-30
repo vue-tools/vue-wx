@@ -1,6 +1,6 @@
 {
   "name": "vue-wx",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/vue-tools/vue-wx"
@@ -26,7 +26,6 @@
     "babel-loader": "^6.2.9",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.18.0",
-    "vue": "^2.1.6",
     "webpack": "^1.14.0"
   },
   "scripts": {
