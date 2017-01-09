@@ -33,5 +33,6 @@ export default [
     'openProductSpecificView',
     'addCard',
     'chooseCard',
-    'openCard'
+    'openCard',
+    'getLocalImgData'
 ]

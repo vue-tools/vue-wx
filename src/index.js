@@ -1,6 +1,6 @@
 import APIS from './apis'
 
-const JSSDK = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js'
+const JSSDK = 'https://res.wx.qq.com/open/js/jweixin-1.2.0.js'
 
 function plugin(Vue, opts) {
     let weixin, queue, done
@@ -59,6 +59,9 @@ function plugin(Vue, opts) {
             }
         }
     })
+
+    weixin.webviewIsWK = () => window.__wxjs_is_wkwebview
+    weixin.webviewIsUI = () => !window.__wxjs_is_wkwebview
 
     Vue.wx = weixin
     Vue.prototype.$wx = weixin

@@ -22,7 +22,7 @@ var _apis2 = _interopRequireDefault(_apis);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var JSSDK = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js';
+var JSSDK = 'https://res.wx.qq.com/open/js/jweixin-1.2.0.js';
 
 function plugin(Vue, opts) {
     var weixin = void 0,
@@ -85,6 +85,13 @@ function plugin(Vue, opts) {
             }
         };
     });
+
+    weixin.webviewIsWK = function () {
+        return window.__wxjs_is_wkwebview;
+    };
+    weixin.webviewIsUI = function () {
+        return !window.__wxjs_is_wkwebview;
+    };
 
     Vue.wx = weixin;
     Vue.prototype.$wx = weixin;
