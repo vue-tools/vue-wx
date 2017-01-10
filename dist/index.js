@@ -87,7 +87,7 @@ function plugin(Vue, opts) {
     });
 
     weixin.webviewIsWK = function () {
-        return window.__wxjs_is_wkwebview;
+        return !!window.__wxjs_is_wkwebview;
     };
     weixin.webviewIsUI = function () {
         return !window.__wxjs_is_wkwebview;

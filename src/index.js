@@ -60,7 +60,7 @@ function plugin(Vue, opts) {
         }
     })
 
-    weixin.webviewIsWK = () => window.__wxjs_is_wkwebview
+    weixin.webviewIsWK = () => !!window.__wxjs_is_wkwebview
     weixin.webviewIsUI = () => !window.__wxjs_is_wkwebview
 
     Vue.wx = weixin
